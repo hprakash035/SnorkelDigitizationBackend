@@ -1,0 +1,45 @@
+{
+  "xsappname": "trl-snorkel",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.RHSnorkelAdmin",
+      "description": "RHSnorkelAdmin"
+    },
+    {
+      "name": "$XSAPPNAME.RHSnorkelChecker",
+      "description": "RHSnorkelChecker"
+    },
+    {
+      "name": "$XSAPPNAME.RHSnorkelMaker",
+      "description": "RHSnorkelMaker"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "RHSnorkelAdmin",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.RHSnorkelAdmin"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "RHSnorkelChecker",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.RHSnorkelChecker"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "RHSnorkelMaker",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.RHSnorkelMaker"
+      ],
+      "attribute-references": []
+    }
+  ]
+}

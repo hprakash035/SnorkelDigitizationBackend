@@ -1,0 +1,7 @@
+ID,qC_HEADER_SNORKEL_NO,measurementItem,sign,standard,mp1,mp2,mp3,mp4,mp5,checkStatus,remarks
+1,,Overall Height,A,"900 +10-5",,,,,,,
+2,,Outside Diameter,B,"1280 ± 5",,,,,,,
+3,,Inside Diameter,C,"500 -1+4",,,,,,,
+4,,"Flange Brick height",D,"+0/-5",,,,,,,
+5,,"Shell Ar pipe opening",E,"255 ± 2",,,,,,,
+6,,"Flange Ar pipe Height",F,"62 ± 5",,,,,,,

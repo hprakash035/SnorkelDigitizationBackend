@@ -1,0 +1,65 @@
+_schema-version: 3.3.0
+ID: TRL_Snorkel_SRV
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+modules:
+  - name: TRL_Snorkel_SRV-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: TRL_Snorkel_SRV-auth
+      - name: TRL_Snorkel_SRV-db
+
+  - name: TRL_Snorkel_SRV-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: TRL_Snorkel_SRV-db
+
+resources:
+  - name: TRL_Snorkel_SRV-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: trl-snorkel
+        tenant-mode: dedicated
+        role-collections:
+          - name: 'RHSnorkelAdmin (TRL_Snorkel_SRV ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.RHSnorkelAdmin'
+          - name: 'RHSnorkelChecker (TRL_Snorkel_SRV ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.RHSnorkelChecker'
+          - name: 'RHSnorkelMaker (TRL_Snorkel_SRV ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.RHSnorkelMaker'
+  - name: TRL_Snorkel_SRV-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared

@@ -1,0 +1,30 @@
+# Generated manifest.yml based on template version 0.1.0
+# appName = TRL_Snorkel_SRV
+# language=nodejs
+# multitenancy=
+---
+applications:
+# -----------------------------------------------------------------------------------
+# Backend Service
+# -----------------------------------------------------------------------------------
+- name: TRL_Snorkel_SRV-srv
+  random-route: true  # for development only
+  path: gen/srv
+  memory: 4G
+  buildpack: nodejs_buildpack
+  services:
+  - TRL_Snorkel_SRV-db
+  - TRL_Snorkel_SRV-auth
+
+# -----------------------------------------------------------------------------------
+# HANA Database Content Deployer App
+# -----------------------------------------------------------------------------------
+- name: TRL_Snorkel_SRV-db-deployer
+  path: gen/db
+  no-route: true
+  health-check-type: process
+  memory: 4G
+  instances: 1
+  buildpack: nodejs_buildpack
+  services:
+  - TRL_Snorkel_SRV-db
