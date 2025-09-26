@@ -190,4 +190,4 @@ service RHSnorkelQCTrackerService {
     };
 }
 
-annotate RHSnorkelQCTrackerService with @requires: ['authenticated-user'];
+// annotate RHSnorkelQCTrackerService with @requires: ['authenticated-user'];
